@@ -6,21 +6,44 @@ import { projects } from "./projects.js";
 
 const LEAVE_DURATION_MS = 420;
 
+function findProjectByPath(pathname) {
+  const normalized = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  return projects.find((item) => item.path === normalized) ?? null;
+}
+
 export default function App() {
   const [isLeaving, setIsLeaving] = useState(false);
-  const [openProjectId, setOpenProjectId] = useState(null);
+  const [openProjectId, setOpenProjectId] = useState(
+    () => findProjectByPath(window.location.pathname)?.id ?? null,
+  );
   const [coverOpen, setCoverOpen] = useState(false);
   const project = projects.find((item) => item.id === openProjectId) ?? null;
 
   function handleOpen(projectId) {
     setIsLeaving(true);
-    window.setTimeout(() => setOpenProjectId(projectId), LEAVE_DURATION_MS);
+    window.setTimeout(() => {
+      setOpenProjectId(projectId);
+      const target = projects.find((item) => item.id === projectId);
+      window.history.pushState(null, "", target.path);
+    }, LEAVE_DURATION_MS);
   }
 
   function handleHome() {
     setOpenProjectId(null);
     setIsLeaving(false);
+    window.history.pushState(null, "", "/");
   }
+
+  // Keep state in sync with browser back/forward navigation.
+  useEffect(() => {
+    function handlePopState() {
+      setOpenProjectId(findProjectByPath(window.location.pathname)?.id ?? null);
+      setIsLeaving(false);
+    }
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   // On first load, the white cover sits fully closed over the card, then
   // its circular opening grows from the center to reveal it underneath.

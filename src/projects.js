@@ -4,6 +4,7 @@ import MyRecitalArticle, { myRecitalSlides } from "./MyRecitalArticle.jsx";
 export const projects = [
   {
     id: "my-recital",
+    path: "/article1",
     title: "My Recital",
     subtitle: "AI 리듬게임 프로젝트",
     badge: "Unreal",
@@ -19,6 +20,7 @@ export const projects = [
   },
   {
     id: "cel-lit",
+    path: "/article2",
     title: "CelLit",
     subtitle: "Unreal Engine NPR 캐릭터 렌더링 플러그인",
     badge: "Unreal",
