@@ -8,17 +8,17 @@ const LEAVE_DURATION_MS = 420;
 
 export default function App() {
   const [isLeaving, setIsLeaving] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [openProjectId, setOpenProjectId] = useState(null);
   const [coverOpen, setCoverOpen] = useState(false);
-  const project = projects[0];
+  const project = projects.find((item) => item.id === openProjectId) ?? null;
 
-  function handleOpen() {
+  function handleOpen(projectId) {
     setIsLeaving(true);
-    window.setTimeout(() => setIsOpen(true), LEAVE_DURATION_MS);
+    window.setTimeout(() => setOpenProjectId(projectId), LEAVE_DURATION_MS);
   }
 
   function handleHome() {
-    setIsOpen(false);
+    setOpenProjectId(null);
     setIsLeaving(false);
   }
 
@@ -40,7 +40,7 @@ export default function App() {
     };
   }, []);
 
-  if (isOpen) {
+  if (project) {
     return (
       <>
         <TopNav onHome={handleHome} />
@@ -59,13 +59,18 @@ export default function App() {
       <a className="site-contact" href="mailto:shjh3117@gmail.com">
         shjh3117@gmail.com
       </a>
-      <Card
-        badge={project.badge}
-        body={project.subtitle}
-        thumbnail={project.thumbnail}
-        title={project.title}
-        onOpen={handleOpen}
-      />
+      <div className="project-list">
+        {projects.map((item) => (
+          <Card
+            badge={item.badge}
+            body={item.subtitle}
+            key={item.id}
+            thumbnail={item.thumbnail}
+            title={item.title}
+            onOpen={() => handleOpen(item.id)}
+          />
+        ))}
+      </div>
       <div className={`project-selection__cover${coverOpen ? " project-selection__cover--open" : ""}`} />
     </div>
   );

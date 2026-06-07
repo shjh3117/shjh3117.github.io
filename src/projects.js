@@ -1,3 +1,4 @@
+import CelLitArticle, { cellitSlides } from "./CelLitArticle.jsx";
 import MyRecitalArticle, { myRecitalSlides } from "./MyRecitalArticle.jsx";
 
 export const projects = [
@@ -15,5 +16,20 @@ export const projects = [
     Article: MyRecitalArticle,
     slideCount: myRecitalSlides.length,
     slides: myRecitalSlides,
+  },
+  {
+    id: "cel-lit",
+    title: "CelLit",
+    subtitle: "Unreal Engine NPR 캐릭터 렌더링 플러그인",
+    badge: "Unreal",
+    thumbnail: {
+      type: "video",
+      src: "/article2/CelLit-PV.mov",
+      poster: "/article2/CelLit-Light.png",
+      alt: "UE_CelLit preview video",
+    },
+    Article: CelLitArticle,
+    slideCount: cellitSlides.length,
+    slides: cellitSlides,
   },
 ];

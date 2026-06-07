@@ -16,9 +16,7 @@ export default function RevealDetail({ onHome, project }) {
 
   useEffect(() => {
     const deck = new Reveal(revealRef.current, {
-      backgroundTransition: "fade",
-      center: true,
-      controls: true,
+      embedded: true,
       controlsLayout: "edges",
       controlsTutorial: false,
       hash: true,
@@ -33,11 +31,10 @@ export default function RevealDetail({ onHome, project }) {
         191: null,
       },
       height: 640,
-      history: false,
       progress: true,
+      scrollActivationWidth: false,
       slideNumber: "c/t",
       transition: "convex",
-      transitionSpeed: "default",
       width: 720,
     });
 

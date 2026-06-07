@@ -12,15 +12,15 @@ html[data-mantine-color-scheme="dark"] body {
 
 .top-nav {
   position: fixed;
-  left: 16px;
-  top: 16px;
+  left: 4px;
+  top: 4px;
   z-index: 10;
 }
 
 .site-brand {
   position: fixed;
-  right: 24px;
-  top: 16px;
+  right: 4px;
+  top: 4px;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -43,8 +43,8 @@ html[data-mantine-color-scheme="dark"] body {
 
 .site-contact {
   position: fixed;
-  right: 24px;
-  bottom: 16px;
+  right: 4px;
+  bottom: 4px;
   z-index: 10;
   font-size: 14px;
   font-weight: 500;
@@ -71,6 +71,17 @@ html[data-mantine-color-scheme="dark"] body {
   opacity: 0;
 }
 
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 32px;
+  max-width: 960px;
+  padding: 32px;
+}
+
 @property --cover-radius {
   syntax: "<percentage>";
   inherits: false;
@@ -81,6 +92,7 @@ html[data-mantine-color-scheme="dark"] body {
    Growing --cover-radius widens the window from the center, revealing
    the card underneath through it. */
 .project-selection__cover {
+  --cover-color: #ffffff;
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -88,17 +100,21 @@ html[data-mantine-color-scheme="dark"] body {
   background: radial-gradient(
     circle at 50% 50%,
     transparent var(--cover-radius),
-    #ffffff calc(var(--cover-radius) + 1px)
+    var(--cover-color) calc(var(--cover-radius) + 1px)
   );
   transition: --cover-radius 720ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+html[data-mantine-color-scheme="dark"] .project-selection__cover {
+  --cover-color: var(--mantine-color-gray-6);
+}
+
 .project-selection__cover--open {
-  --cover-radius: 52%;
+  --cover-radius: 75%;
 }
 
 .project-card {
-  width: 432px;
+  width: 320px;
   cursor: pointer;
   transition:
     box-shadow 256ms cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -133,6 +149,10 @@ html[data-mantine-color-scheme="dark"] body {
   position: fixed;
   inset: 0;
   z-index: 5;
+}
+
+.reveal-detail .reveal {
+  background-color: #000000;
 }
 
 .reveal-detail .slides {
