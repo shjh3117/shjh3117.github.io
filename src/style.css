@@ -196,16 +196,6 @@ html[data-mantine-color-scheme="dark"] body {
   color: var(--mantine-primary-color-filled);
 }
 
-@media screen and (width >= 500px) {
-  .reveal-detail .controls[data-controls-layout="edges"] .navigate-left {
-    left: max(12px, calc(50% - 360px * var(--slide-scale, 1) - 48px));
-  }
-
-  .reveal-detail .controls[data-controls-layout="edges"] .navigate-right {
-    right: max(12px, calc(50% - 360px * var(--slide-scale, 1) - 48px));
-  }
-}
-
 .reveal-step {
   display: grid !important;
   place-items: center;

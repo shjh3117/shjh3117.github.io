@@ -4,7 +4,9 @@
       "Bash(which magick *)",
       "Bash(node -e \"console.log\\(process.version\\)\")",
       "Bash(npx vite *)",
-      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --screenshot=/tmp/shots/new-slide-7.png --window-size=1440,900 --hide-scrollbars --virtual-time-budget=6000 \"http://localhost:5175/#/7\")"
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --screenshot=/tmp/shots/new-slide-7.png --window-size=1440,900 --hide-scrollbars --virtual-time-budget=6000 \"http://localhost:5175/#/7\")",
+      "Bash(grep -oE \"\\\\.controls[a-zA-Z0-9_.\\\\[\\\\]=\\\\\"-]*\\\\{[^}]{0,200}\\\\}\" \"f:\\\\shjh3117.github.io\\\\node_modules\\\\reveal.js\\\\dist\\\\reveal.css\")",
+      "Bash(node -e ' *)"
     ]
   }
 }
