@@ -17,24 +17,28 @@ html[data-mantine-color-scheme="dark"] body {
   z-index: 10;
 }
 
-.site-title {
+.site-brand {
   position: fixed;
-  right: 16px;
-  top: 8px;
+  right: 24px;
+  top: 16px;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.85);
   text-align: right;
-  transition: opacity 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.site-title--hidden {
-  opacity: 0;
-  pointer-events: none;
+.site-brand span:first-child {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
 }
 
-@property --circle-radius {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0%;
+.site-brand span:last-child {
+  font-size: 22px;
 }
 
 .project-selection {
@@ -42,39 +46,84 @@ html[data-mantine-color-scheme="dark"] body {
   inset: 0;
   display: grid;
   place-items: center;
-  perspective: 1024px;
-  background:
-    radial-gradient(circle at 50% 50%, #000000 0 var(--circle-radius), transparent calc(var(--circle-radius) + 1%)),
-    var(--mantine-color-gray-2);
-  transition: --circle-radius 640ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  background: #000000;
+  transition: opacity 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-html[data-mantine-color-scheme="dark"] .project-selection {
-  background:
-    radial-gradient(circle at 50% 50%, #000000 0 var(--circle-radius), transparent calc(var(--circle-radius) + 1%)),
-    var(--mantine-color-dark-8);
+.project-selection--leaving {
+  opacity: 0;
 }
 
-.project-selection--start {
-  --circle-radius: 0%;
+@property --cover-radius {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
 }
 
-.project-selection--returning {
-  --circle-radius: 100%;
+/* Opaque white sheet over the card with a circular window cut into it.
+   Growing --cover-radius widens the window from the center, revealing
+   the card underneath through it. */
+.project-selection__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent var(--cover-radius),
+    #ffffff calc(var(--cover-radius) + 1px)
+  );
+  transition: --cover-radius 720ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.project-selection--idle {
-  --circle-radius: 52%;
+.project-selection__cover--open {
+  --cover-radius: 52%;
 }
 
-.project-selection--expanding {
-  --circle-radius: 100%;
+/* Two balls riding the exact edge of the cover's circular window (its
+   radius is 52% of the farthest-corner distance, i.e. hypot(52vw, 52vh)),
+   kept opposite each other so they stay symmetric while orbiting together. */
+.project-selection__orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: hypot(52vw, 52vh);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  animation: cover-orbit-spin 6s linear infinite;
+}
+
+.project-selection__orbit::before,
+.project-selection__orbit::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  translate: -50% -50%;
+}
+
+.project-selection__orbit::before {
+  top: 0;
+}
+
+.project-selection__orbit::after {
+  top: 100%;
+}
+
+@keyframes cover-orbit-spin {
+  to {
+    rotate: 360deg;
+  }
 }
 
 .project-card {
   width: 432px;
   cursor: pointer;
-  transform: translateZ(0);
   transition:
     box-shadow 256ms cubic-bezier(0.2, 0.8, 0.2, 1),
     transform 256ms cubic-bezier(0.2, 0.8, 0.2, 1);

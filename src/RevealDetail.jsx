@@ -3,11 +3,16 @@ import Reveal from "reveal.js";
 import "reveal.js/reveal.css";
 import ArticlePanel from "./ArticlePanel.jsx";
 
-export default function RevealDetail({ project }) {
+export default function RevealDetail({ onHome, project }) {
   const revealRef = useRef(null);
   const deckRef = useRef(null);
+  const onHomeRef = useRef(onHome);
   const ProjectArticle = project.Article;
   const slides = project.slides;
+
+  useEffect(() => {
+    onHomeRef.current = onHome;
+  }, [onHome]);
 
   useEffect(() => {
     const deck = new Reveal(revealRef.current, {
@@ -45,7 +50,7 @@ export default function RevealDetail({ project }) {
 
       event.preventDefault();
       event.stopImmediatePropagation();
-      window.location.assign(new URL("/", window.location.origin));
+      onHomeRef.current();
     }
 
     document.addEventListener("keydown", handleEscapeKey, true);

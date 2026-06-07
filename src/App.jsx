@@ -1,37 +1,35 @@
 import { useEffect, useState } from "react";
 import Card from "./Card.jsx";
 import RevealDetail from "./RevealDetail.jsx";
+import TopNav from "./TopNav.jsx";
 import { projects } from "./projects.js";
 
-const RETURN_FLAG = "myRecital:returningFromProject";
-const EXPAND_DURATION_MS = 640;
+const LEAVE_DURATION_MS = 420;
 
-function getInitialCirclePhase() {
-  return sessionStorage.getItem(RETURN_FLAG) ? "returning" : "start";
-}
-
-export default function App({ onDetailOpenChange }) {
-  const [activeProject, setActiveProject] = useState(null);
-  const [circlePhase, setCirclePhase] = useState(getInitialCirclePhase);
+export default function App() {
+  const [isLeaving, setIsLeaving] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [coverOpen, setCoverOpen] = useState(false);
   const project = projects[0];
 
-  function openProjectDetail(project) {
-    setCirclePhase("expanding");
-    sessionStorage.setItem(RETURN_FLAG, "1");
-
-    window.setTimeout(() => {
-      document.body.classList.add("is-reveal-detail");
-      setActiveProject(project);
-      onDetailOpenChange(true);
-    }, EXPAND_DURATION_MS);
+  function handleOpen() {
+    setIsLeaving(true);
+    window.setTimeout(() => setIsOpen(true), LEAVE_DURATION_MS);
   }
 
-  useEffect(() => {
-    sessionStorage.removeItem(RETURN_FLAG);
+  function handleHome() {
+    setIsOpen(false);
+    setIsLeaving(false);
+  }
 
+  // On first load, the white cover sits fully closed over the card, then
+  // its circular opening grows from the center to reveal it underneath.
+  useEffect(() => {
     let settleFrame;
     const enterFrame = requestAnimationFrame(() => {
-      settleFrame = requestAnimationFrame(() => setCirclePhase("idle"));
+      settleFrame = requestAnimationFrame(() => {
+        setCoverOpen(true);
+      });
     });
 
     return () => {
@@ -42,27 +40,32 @@ export default function App({ onDetailOpenChange }) {
     };
   }, []);
 
-  useEffect(() => {
-    return () => {
-      document.body.classList.remove("is-reveal-detail");
-    };
-  }, []);
-
-  if (!activeProject) {
+  if (isOpen) {
     return (
-      <div className={`project-selection project-selection--${circlePhase}`}>
-        <Card
-          badge={project.badge}
-          body={project.subtitle}
-          thumbnail={project.thumbnail}
-          title={project.title}
-          onOpen={() => openProjectDetail(project)}
-        />
-      </div>
+      <>
+        <TopNav onHome={handleHome} />
+        <RevealDetail onHome={handleHome} project={project} />
+      </>
     );
   }
 
   return (
-    <RevealDetail project={activeProject} />
+    <div className={`project-selection${isLeaving ? " project-selection--leaving" : ""}`}>
+      <TopNav onHome={handleHome} />
+      <div className="site-brand">
+        <span>shjh3117's</span>
+        <span>Techlog</span>
+      </div>
+      <Card
+        badge={project.badge}
+        body={project.subtitle}
+        thumbnail={project.thumbnail}
+        title={project.title}
+        onOpen={handleOpen}
+      />
+      <div className={`project-selection__cover${coverOpen ? " project-selection__cover--open" : ""}`}>
+        <div className="project-selection__orbit" />
+      </div>
+    </div>
   );
 }
