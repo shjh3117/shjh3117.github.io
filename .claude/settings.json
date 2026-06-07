@@ -6,7 +6,19 @@
       "Bash(npx vite *)",
       "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --screenshot=/tmp/shots/new-slide-7.png --window-size=1440,900 --hide-scrollbars --virtual-time-budget=6000 \"http://localhost:5175/#/7\")",
       "Bash(grep -oE \"\\\\.controls[a-zA-Z0-9_.\\\\[\\\\]=\\\\\"-]*\\\\{[^}]{0,200}\\\\}\" \"f:\\\\shjh3117.github.io\\\\node_modules\\\\reveal.js\\\\dist\\\\reveal.css\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(curl -s http://localhost:5180/)",
+      "Bash(curl -s http://localhost:5180/src/main.jsx -o /tmp/main.out -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:5180/src/App.jsx -o /tmp/app.out -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:5180/src/RevealDetail.jsx -o /tmp/reveal.out -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5180/node_modules/reveal.js/dist/reveal.css\" -o /dev/null -w \"reveal.css direct: HTTP %{http_code}\\\\n\")",
+      "Bash(git rev-list *)",
+      "Bash(git push *)",
+      "Bash(grep -o \"\\\\.reveal[^{]*{[^}]*}\" \"C:\\\\Users\\\\jhn71\\\\.claude\\\\projects\\\\f--shjh3117-github-io\\\\tool-results\\\\bhnr3uwm4.txt\" 2>/dev/null | grep -iE \"slides|section|controls|progress|viewport\" | head -40)",
+      "Read(//c/Users/jhn71/.claude/projects/f--shjh3117-github-io/tool-results/**)",
+      "Bash(python3 -c ' *)",
+      "WebFetch(domain:revealjs.com)",
+      "Bash(grep -o \"Math.min\\(.\\\\{0,80\\\\}maxScale.\\\\{0,200\\\\}\" node_modules/reveal.js/dist/reveal.js)"
     ]
   }
 }

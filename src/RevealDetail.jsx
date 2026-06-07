@@ -35,6 +35,7 @@ export default function RevealDetail({ onHome, project }) {
       height: 640,
       history: false,
       progress: true,
+      slideNumber: "c/t",
       transition: "convex",
       transitionSpeed: "default",
       width: 720,
@@ -69,13 +70,7 @@ export default function RevealDetail({ onHome, project }) {
         <div className="slides">
           {Array.from({ length: project.slideCount }, (_, index) => (
             <section
-              className={`reveal-step reveal-step--${slides[index].variant ?? "card"}`}
-              data-auto-animate={slides[index].autoAnimate}
-              data-background-color={slides[index].backgroundColor}
-              data-background-image={slides[index].backgroundImage}
-              data-background-opacity={slides[index].backgroundOpacity}
-              data-background-position={slides[index].backgroundPosition}
-              data-background-size={slides[index].backgroundSize}
+              className="reveal-step"
               data-transition={slides[index].transition}
               key={slides[index].id}
             >
@@ -83,7 +78,6 @@ export default function RevealDetail({ onHome, project }) {
                 {({ openImage }) => (
                   <ProjectArticle
                     openImage={openImage}
-                    slideCount={project.slideCount}
                     slideIndex={index}
                   />
                 )}

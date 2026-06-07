@@ -66,9 +66,7 @@ export default function App() {
         title={project.title}
         onOpen={handleOpen}
       />
-      <div className={`project-selection__cover${coverOpen ? " project-selection__cover--open" : ""}`}>
-        <div className="project-selection__orbit" />
-      </div>
+      <div className={`project-selection__cover${coverOpen ? " project-selection__cover--open" : ""}`} />
     </div>
   );
 }

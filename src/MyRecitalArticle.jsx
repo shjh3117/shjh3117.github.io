@@ -256,7 +256,6 @@ const projectMeta = [
 export const myRecitalSlides = [
   {
     id: "intro",
-    label: "Intro",
     render: () => (
       <Stack gap={16} h="100%" style={{ overflow: "hidden" }}>
         <Title order={2} mt={0}>{projectContent.intro.title}</Title>
@@ -283,7 +282,6 @@ export const myRecitalSlides = [
   },
   {
     id: "project-info",
-    label: "Info",
     render: () => (
       <Stack gap={28} h="100%">
         <Title order={2} mt={0}>{projectContent.info.title}</Title>
@@ -311,9 +309,7 @@ export const myRecitalSlides = [
   },
   {
     id: "flow-overview",
-    label: "Flow",
     transition: "convex-in slide-out",
-    variant: "flow-intro",
     render: () => (
       <Stack gap={16} h="100%">
         <Title order={2} mt={0}>{projectContent.flow.title}</Title>
@@ -334,45 +330,35 @@ export const myRecitalSlides = [
   },
   {
     id: "flow-lobby",
-    label: "Lobby",
     transition: "slide",
-    variant: "flow",
     render: ({ openImage }) => (
       <FlowStage step={coreFlow[0]} openImage={openImage} />
     ),
   },
   {
     id: "flow-song-select",
-    label: "Song",
     transition: "slide",
-    variant: "flow",
     render: ({ openImage }) => (
       <FlowStage step={coreFlow[1]} openImage={openImage} />
     ),
   },
   {
     id: "flow-gameplay",
-    label: "Play",
     transition: "slide",
-    variant: "flow",
     render: ({ openImage }) => (
       <FlowStage step={coreFlow[2]} openImage={openImage} />
     ),
   },
   {
     id: "settings",
-    label: "Settings",
     transition: "slide-in convex-out",
-    variant: "flow",
     render: ({ openImage }) => (
       <FlowStage step={extraFlow} openImage={openImage} />
     ),
   },
   {
     id: "implementation-overview",
-    label: "Impl",
     transition: "convex-in slide-out",
-    variant: "flow-intro",
     render: () => (
       <Stack gap={16} h="100%">
         <Title order={2} mt={0}>{projectContent.implementation.title}</Title>
@@ -391,7 +377,6 @@ export const myRecitalSlides = [
   },
   {
     id: "client-implementation",
-    label: "Client",
     transition: "slide",
     render: () => (
       <ClientImplementationSlide />
@@ -399,7 +384,6 @@ export const myRecitalSlides = [
   },
   {
     id: "chart-automation",
-    label: "Chart",
     transition: "slide-in convex-out",
     render: () => (
       <ChartAutomationSlide />
@@ -407,18 +391,13 @@ export const myRecitalSlides = [
   },
   {
     id: "result",
-    label: "Result",
     render: () => (
       <ReviewSlide />
     ),
   },
 ];
 
-export default function MyRecitalArticle({
-  openImage,
-  slideCount,
-  slideIndex,
-}) {
+export default function MyRecitalArticle({ openImage, slideIndex }) {
   const slide = myRecitalSlides[slideIndex];
 
   return (
@@ -433,10 +412,6 @@ export default function MyRecitalArticle({
       <Box flex={1} style={{ overflow: "hidden" }}>
         {slide.render({ openImage })}
       </Box>
-
-      <Text className="presentation-slide__index" fw={700}>
-        {slideIndex + 1} / {slideCount}
-      </Text>
     </Paper>
   );
 }
