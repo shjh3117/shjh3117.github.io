@@ -1,15 +1,13 @@
-import { Badge, Button, Group, Text, Title } from "@mantine/core";
-
-const projectLinks = [
-  {
-    label: "Store",
-    href: "https://example.com/my-recital-store",
-  },
-  {
-    label: "Trailer",
-    href: "https://example.com/my-recital-trailer",
-  },
-];
+import {
+  Anchor,
+  Box,
+  Group,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 
 const images = {
   lobby: {
@@ -30,30 +28,228 @@ const images = {
   },
 };
 
+const videos = {
+  gameplay: {
+    src: "/article1/my-recital-gameplayvideo.mp4",
+    poster: images.gameplay.src,
+    alt: "My Recital gameplay video",
+  },
+};
+
+const projectContent = {
+  intro: {
+    title: "My Recital",
+    body: (
+      <>
+        AI와 광선추적으로, 소리와 빛을 표현한, <strong>리듬 게임</strong>
+        입니다.
+      </>
+    ),
+  },
+  info: {
+    title: "Project Info",
+  },
+  flow: {
+    title: "Game Flow",
+    lead: "My Recital은 로비, 선곡, 플레이 순으로 진행됩니다.",
+  },
+  settings: {
+    title: "Settings",
+    body: "언어, 해상도, HDR, 볼륨, 판정 등의 설정이 가능한 화면입니다.",
+  },
+  implementation: {
+    title: "Implementation",
+    lead: "구현 사항은 크게 게임 클라이언트 구현과 채보 제작 자동화, 두 가지로 정리할 수 있습니다.",
+  },
+  clientImplementation: {
+    title: "게임 클라이언트 구현 사항",
+    items: [
+      {
+        label: "입력",
+        body: "정확한 입력을 얻기 위한 Win32 GetAsyncKeyState 기반 커스텀 raw input polling 구현",
+      },
+      {
+        label: "판정",
+        body: "정확한 판정을 위해 오디오 엔진의 Quartz Clock 기준 노트 배치 및 판정",
+      },
+      {
+        label: "그래픽",
+        body: "Lumen Reflection 및 HDR을 활용하여 디자인",
+      },
+      {
+        label: "UI",
+        body: "Slate UI 기반 C++ 구현",
+      },
+      {
+        label: "국제화",
+        body: "Unreal Localization 시스템을 사용한 다국어 지원",
+      },
+      {
+        label: "배포",
+        body: "Windows 대상, STOVE Indie 배포(예정)",
+      },
+    ],
+  },
+  chartAutomation: {
+    title: "게임 데이터(채보) 제작 자동화 구현 사항",
+    sections: [
+      {
+        title: "모델 학습",
+        groups: [
+          {
+            title: "전처리",
+            items: [
+              "음원을 AMT 모델로 디지털 악보로 전사",
+              "Onset / High Pitch 기준으로 정렬",
+            ],
+          },
+          {
+            title: "인코딩(입력)",
+            items: ["전사된 음원을 시간 순서 토큰으로 변환"],
+          },
+          {
+            title: "인코딩(출력)",
+            items: ["기존 채보를 시간별 노트 이벤트 토큰으로 변환"],
+          },
+          {
+            title: "모델",
+            items: [
+              "Encoder-only Transformer 사용",
+              "attention으로 앞뒤 음악 흐름과 채보 패턴 학습",
+            ],
+          },
+          {
+            title: "학습",
+            items: [
+              "입력: 전사 음원 토큰",
+              "정답: 사람이 만든 기존 채보 토큰",
+              "목표: 각 시간 위치의 채보 토큰 예측",
+            ],
+          },
+        ],
+      },
+      {
+        title: "자동화 실행 흐름",
+        groups: [
+          {
+            title: "전처리",
+            items: [
+              "음원을 AMT 모델로 디지털 악보로 전사",
+              "Onset / High Pitch 기준 정렬",
+            ],
+          },
+          {
+            title: "생성",
+            items: [
+              "전사 토큰을 모델에 입력",
+              "모델이 시간별 채보 토큰 예측",
+            ],
+          },
+          {
+            title: "후처리",
+            items: ["인간 채보 디자이너가 검수"],
+          },
+        ],
+      },
+    ],
+  },
+  result: {
+    title: "Review",
+    points: [
+      {
+        label: "역할",
+        body: "팀장으로서 기능 구현을 넘어 방향성 설정, 일정 관리, 역할 분배, 팀원 간 커뮤니케이션 조율까지 맡았습니다.",
+      },
+      {
+        label: "갈등",
+        body: "팀원 간 음악적 직관에 따른 방향성 차이를 좁히지 못해 결국 두 의견을 모두 구현했고, 그만큼 개발 기간이 늘어났습니다.",
+      },
+      {
+        label: "해결",
+        body: "음악적 취향처럼 애초에 직관 외에 다른 근거가 있을 수 없는 영역에서는, '누구 의견이 더 맞는가'를 가리려는 시도 자체가 답이 될 수 없다는 것을 배웠습니다. 그런 상황에서는 해당 분야에 더 전문적인 직관을 가진 사람에게 결정을 맡기고, 그마저 가리기 어렵다면 구현 비용이 더 적은 쪽을 선택하는 식으로 미리 기준을 세워뒀어야 했다는 것을 깨달았습니다.",
+      },
+    ],
+    thanks: "감사합니다.",
+  },
+};
+
 const coreFlow = [
   {
-    href: "#/1",
+    href: "#/3",
     id: "lobby",
     index: 0,
     title: "Lobby",
-    body: "공연장 분위기와 게임의 첫 인상을 보여주는 진입 화면",
+    body: "게임 실행시 마주보게 되는 화면입니다.",
     image: images.lobby,
   },
   {
-    href: "#/2",
+    href: "#/4",
     id: "song-select",
     index: 1,
     title: "Song Select",
-    body: "플레이할 곡과 난이도를 고르고 게임으로 들어가는 화면",
+    body: "플레이할 곡과 난이도를 고르는 화면입니다.",
     image: images.songSelect,
   },
   {
-    href: "#/3",
+    href: "#/5",
     id: "gameplay",
     index: 2,
     title: "Gameplay",
-    body: "입력, 판정, 조명 연출이 한 번에 보이는 실제 플레이 화면",
+    body: "판정, 콤보, 점수 등이 한 번에 보이는 플레이 화면입니다.",
     image: images.gameplay,
+  },
+];
+
+const extraFlow = {
+  href: "#/6",
+  id: "settings",
+  index: "Ex",
+  title: projectContent.settings.title,
+  body: projectContent.settings.body,
+  image: images.settings,
+};
+
+const flowStages = [...coreFlow, extraFlow];
+
+const implementationTopics = [
+  {
+    href: "#/8",
+    id: "client-implementation",
+    index: 0,
+    title: projectContent.clientImplementation.title,
+  },
+  {
+    href: "#/9",
+    id: "chart-automation",
+    index: 1,
+    title: projectContent.chartAutomation.title,
+  },
+];
+
+const projectMeta = [
+  {
+    label: "주제",
+    value: "리듬 게임",
+  },
+  {
+    label: "기간",
+    value: "2026.03 - 2025.05",
+  },
+  {
+    label: "프로젝트 인원",
+    value: "4 인",
+  },
+  {
+    label: "역할",
+    value: "팀장, 게임 클라이언트 전체 구현",
+  },
+  {
+    label: "기술스택",
+    value: "Unreal Engine, Pytorch",
+  },
+  {
+    label: "성과",
+    value: "특화프로젝트 우수상 수상 (삼성청년SW·AI아카데미, 삼성전자주식회사)",
   },
 ];
 
@@ -61,49 +257,79 @@ export const myRecitalSlides = [
   {
     id: "intro",
     label: "Intro",
-    render: ({ openImage }) => (
-      <div className="presentation-hero">
-        <div className="presentation-hero__title">
-          <Badge variant="light">Project</Badge>
-          <Title order={2}>My Recital</Title>
+    render: () => (
+      <Stack gap={16} h="100%" style={{ overflow: "hidden" }}>
+        <Title order={2} mt={0}>{projectContent.intro.title}</Title>
+
+        <div className="presentation-hero__image">
+          <video
+            aria-label={videos.gameplay.alt}
+            autoPlay
+            controls
+            loop
+            muted
+            playsInline
+            onClick={(event) => event.stopPropagation()}
+            onPointerDown={(event) => event.stopPropagation()}
+            poster={videos.gameplay.poster}
+            preload="metadata"
+            src={videos.gameplay.src}
+          />
         </div>
 
-        <button
-          aria-label={`${images.gameplay.alt} 크게 보기`}
-          className="presentation-hero__image"
-          type="button"
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            openImage(images.gameplay);
-          }}
-        >
-          <img src={images.gameplay.src} alt={images.gameplay.alt} />
-        </button>
+        <Text>{projectContent.intro.body}</Text>
+      </Stack>
+    ),
+  },
+  {
+    id: "project-info",
+    label: "Info",
+    render: () => (
+      <Stack gap={28} h="100%">
+        <Title order={2} mt={0}>{projectContent.info.title}</Title>
 
-        <div className="presentation-hero__content">
-          <Text>
-            AI 채보와 실시간 조명 연출로 만든 리듬게임 프로젝트
-          </Text>
-          <Group gap="xs" mt="md">
-            <Button component="a" href="#/1">
-              Flow 보기
-            </Button>
-            {projectLinks.map((link) => (
-              <Button
-                component="a"
-                href={link.href}
-                key={link.label}
-                rel="noreferrer"
-                target="_blank"
-                variant="light"
-              >
-                {link.label}
-              </Button>
-            ))}
-          </Group>
-        </div>
-      </div>
+        <Stack gap={0}>
+          {projectMeta.map((item) => (
+            <Box
+              key={item.label}
+              py={18}
+              style={{
+                borderTop: "1px solid var(--mantine-color-default-border)",
+              }}
+            >
+              <Group align="baseline" gap={24} wrap="nowrap">
+                <Text c="dimmed" fw={700} size="sm" w={144}>
+                  {item.label}
+                </Text>
+                <Text fw={700}>{item.value}</Text>
+              </Group>
+            </Box>
+          ))}
+        </Stack>
+      </Stack>
+    ),
+  },
+  {
+    id: "flow-overview",
+    label: "Flow",
+    transition: "convex-in slide-out",
+    variant: "flow-intro",
+    render: () => (
+      <Stack gap={16} h="100%">
+        <Title order={2} mt={0}>{projectContent.flow.title}</Title>
+
+        <Text maw={480} size="lg">
+          {projectContent.flow.lead}
+        </Text>
+
+        <Stack gap={0} mt={6}>
+          {coreFlow.map((item) => (
+            <FlowIntroStep item={item} key={item.id} />
+          ))}
+
+          <FlowIntroStep item={extraFlow} />
+        </Stack>
+      </Stack>
     ),
   },
   {
@@ -136,44 +362,54 @@ export const myRecitalSlides = [
   {
     id: "settings",
     label: "Settings",
+    transition: "slide-in convex-out",
+    variant: "flow",
     render: ({ openImage }) => (
-      <>
-        <Title order={3}>Settings</Title>
-        <PreviewImage image={images.settings} openImage={openImage} />
-        <Text>
-          키 설정과 속도 조절처럼 플레이 감각에 직접 영향을 주는 설정 화면입니다.
-        </Text>
-      </>
+      <FlowStage step={extraFlow} openImage={openImage} />
     ),
   },
   {
-    id: "tech",
-    label: "Tech",
+    id: "implementation-overview",
+    label: "Impl",
+    transition: "convex-in slide-out",
+    variant: "flow-intro",
     render: () => (
-      <>
-        <Title order={3}>Technical Core</Title>
-        <ul>
-          <li>FMOD DSP Clock 기준으로 노트 타이밍과 판정을 맞췄습니다.</li>
-          <li>Win32 GetAsyncKeyState 기반 polling으로 입력 타이밍을 직접 다뤘습니다.</li>
-          <li>Lumen Reflection과 HDR을 사용해 피아노 공연장 분위기를 만들었습니다.</li>
-          <li>AI 채보 제작 파이프라인으로 음원에서 노트 데이터 후보를 생성했습니다.</li>
-        </ul>
-      </>
+      <Stack gap={16} h="100%">
+        <Title order={2} mt={0}>{projectContent.implementation.title}</Title>
+
+        <Text maw={480} size="lg">
+          {projectContent.implementation.lead}
+        </Text>
+
+        <Stack gap={0} mt={6}>
+          {implementationTopics.map((item) => (
+            <FlowIntroStep item={item} key={item.id} />
+          ))}
+        </Stack>
+      </Stack>
+    ),
+  },
+  {
+    id: "client-implementation",
+    label: "Client",
+    transition: "slide",
+    render: () => (
+      <ClientImplementationSlide />
+    ),
+  },
+  {
+    id: "chart-automation",
+    label: "Chart",
+    transition: "slide-in convex-out",
+    render: () => (
+      <ChartAutomationSlide />
     ),
   },
   {
     id: "result",
     label: "Result",
     render: () => (
-      <>
-        <Title order={3}>Role & Result</Title>
-        <Text>
-          팀장 및 게임 클라이언트 구현 사항 전반을 담당했습니다.
-        </Text>
-        <Text>
-          프로젝트 결과로 특화프로젝트 우수상을 수상했습니다.
-        </Text>
-      </>
+      <ReviewSlide />
     ),
   },
 ];
@@ -186,30 +422,96 @@ export default function MyRecitalArticle({
   const slide = myRecitalSlides[slideIndex];
 
   return (
-    <div
-      className={`presentation-slide presentation-slide--${slide.variant ?? "card"}`}
+    <Paper
+      className="presentation-slide"
+      p={24}
+      pt={32}
+      radius="md"
+      shadow="xl"
+      withBorder
     >
-      <div className="presentation-slide__content">
+      <Box flex={1} style={{ overflow: "hidden" }}>
         {slide.render({ openImage })}
-      </div>
+      </Box>
 
       <Text className="presentation-slide__index" fw={700}>
         {slideIndex + 1} / {slideCount}
       </Text>
-    </div>
+    </Paper>
+  );
+}
+
+function FlowIntroStep({ item }) {
+  return (
+    <Box
+      py={16}
+      style={{
+        borderTop: "1px solid var(--mantine-color-default-border)",
+      }}
+    >
+      <Group align="center" gap={24} wrap="nowrap">
+        <Text
+          c="var(--mantine-primary-color-filled)"
+          fw={800}
+          fz={17}
+          w={48}
+        >
+          {formatFlowIndex(item)}
+        </Text>
+        <Anchor className="flow-intro__step-title" href={item.href}>
+          {item.title}
+        </Anchor>
+      </Group>
+    </Box>
+  );
+}
+
+function ReviewSlide() {
+  const review = projectContent.result;
+
+  return (
+    <Stack gap={24} h="100%">
+      <Title order={2} mt={0}>{review.title}</Title>
+
+      <Stack gap={0}>
+        {review.points.map((item) => (
+          <Box
+            key={item.label}
+            py={20}
+            style={{
+              borderTop: "1px solid var(--mantine-color-default-border)",
+            }}
+          >
+            <Group align="flex-start" gap={20} wrap="nowrap">
+              <Text c="dimmed" fw={700} size="md" w={64} style={{ flexShrink: 0 }}>
+                {item.label}
+              </Text>
+              <Text size="md">{item.body}</Text>
+            </Group>
+          </Box>
+        ))}
+      </Stack>
+
+      <Text c="dimmed" mt="auto">
+        {review.thanks}
+      </Text>
+    </Stack>
   );
 }
 
 function FlowStage({ step, openImage }) {
-  return (
-    <div className="flow-stage">
-      <div className="flow-stage__title">
-        <Title order={2}>Flow</Title>
-      </div>
+  const stageTitle =
+    step.index === "Ex"
+      ? `${projectContent.flow.title} - ${step.index}`
+      : projectContent.flow.title;
 
-      <div className="flow-stage__rail">
-        {coreFlow.map((item) => (
-          <a
+  return (
+    <Stack gap={16} h="100%">
+      <Title order={2} mt={0}>{stageTitle}</Title>
+
+      <SimpleGrid cols={4} spacing={8}>
+        {flowStages.map((item) => (
+          <Anchor
             className={`flow-stage__rail-item ${
               item.id === step.id ? "flow-stage__rail-item--active" : ""
             }`}
@@ -217,11 +519,11 @@ function FlowStage({ step, openImage }) {
             href={item.href}
             key={item.id}
           >
-            <span>{String(item.index + 1).padStart(2, "0")}</span>
+            <span>{formatFlowIndex(item)}</span>
             {item.title}
-          </a>
+          </Anchor>
         ))}
-      </div>
+      </SimpleGrid>
 
       <button
         aria-label={`${step.image.alt} 크게 보기`}
@@ -236,29 +538,81 @@ function FlowStage({ step, openImage }) {
         <img src={step.image.src} alt={step.image.alt} />
       </button>
 
-      <div className="flow-stage__caption" data-id={step.id}>
-        <Title order={3}>{step.title}</Title>
+      <Box data-id={step.id} pr={64}>
+        <Title order={3} mb={4}>{step.title}</Title>
         <Text>{step.body}</Text>
-      </div>
-    </div>
+      </Box>
+    </Stack>
   );
 }
 
-function PreviewImage({ image, openImage }) {
-  function handlePointerDown(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    openImage(image);
-  }
-
+function ClientImplementationSlide() {
   return (
-    <button
-      aria-label={`${image.alt} 크게 보기`}
-      className="presentation-image"
-      type="button"
-      onClick={handlePointerDown}
-    >
-      <img src={image.src} alt={image.alt} />
-    </button>
+    <Stack gap={18} h="100%">
+      <Title order={2} mt={0}>{projectContent.clientImplementation.title}</Title>
+
+      <Stack gap={0}>
+        {projectContent.clientImplementation.items.map((item) => (
+          <Box
+            key={item.label}
+            py={9}
+            style={{
+              borderTop: "1px solid var(--mantine-color-default-border)",
+            }}
+          >
+            <Group align="baseline" gap={16} wrap="nowrap">
+              <Text c="dimmed" fw={700} size="sm" w={72}>
+                {item.label}
+              </Text>
+              <Text size="sm">{item.body}</Text>
+            </Group>
+          </Box>
+        ))}
+      </Stack>
+    </Stack>
   );
 }
+
+function ChartAutomationSlide() {
+  return (
+    <Stack gap={18} h="100%">
+      <Title order={2} mt={0}>{projectContent.chartAutomation.title}</Title>
+
+      <SimpleGrid cols={2} spacing={18} style={{ minHeight: 0 }}>
+        {projectContent.chartAutomation.sections.map((section) => (
+          <Box key={section.title} style={{ minWidth: 0 }}>
+            <Text fw={800}>{section.title}</Text>
+
+            <Stack gap={6} mt={8}>
+              {section.groups.map((group) => (
+                <Box
+                  key={group.title}
+                  pt={6}
+                  style={{
+                    borderTop: "1px solid var(--mantine-color-default-border)",
+                  }}
+                >
+                  <Text c="dimmed" fw={700} size="xs">
+                    {group.title}
+                  </Text>
+                  <Box component="ul" fz={12} lh={1.35} m={0} pl={16}>
+                    {group.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </Box>
+                </Box>
+              ))}
+            </Stack>
+          </Box>
+        ))}
+      </SimpleGrid>
+    </Stack>
+  );
+}
+
+function formatFlowIndex(item) {
+  return typeof item.index === "number"
+    ? String(item.index + 1).padStart(2, "0")
+    : item.index;
+}
+

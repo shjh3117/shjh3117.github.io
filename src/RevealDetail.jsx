@@ -17,18 +17,41 @@ export default function RevealDetail({ project }) {
       controlsLayout: "edges",
       controlsTutorial: false,
       hash: true,
-      height: 512,
+      keyboard: {
+        // Disable the presenter "blackout" toggle (;, :, b, v, ., /) — it
+        // just hides the slide behind a black overlay with no visible exit.
+        58: null,
+        59: null,
+        66: null,
+        86: null,
+        190: null,
+        191: null,
+      },
+      height: 640,
       history: false,
       progress: true,
       transition: "convex",
       transitionSpeed: "default",
-      width: 640,
+      width: 720,
     });
 
     deckRef.current = deck;
     deck.initialize();
 
+    function handleEscapeKey(event) {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      window.location.assign(new URL("/", window.location.origin));
+    }
+
+    document.addEventListener("keydown", handleEscapeKey, true);
+
     return () => {
+      document.removeEventListener("keydown", handleEscapeKey, true);
       deck.destroy();
       deckRef.current = null;
       window.history.replaceState(null, "", window.location.pathname);

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(which magick *)",
+      "Bash(node -e \"console.log\\(process.version\\)\")",
+      "Bash(npx vite *)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --screenshot=/tmp/shots/new-slide-7.png --window-size=1440,900 --hide-scrollbars --virtual-time-budget=6000 \"http://localhost:5175/#/7\")"
+    ]
+  }
+}

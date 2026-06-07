@@ -41,7 +41,7 @@ body {
 }
 
 .project-card {
-  width: 340px;
+  width: 432px;
   cursor: pointer;
   transform: translateZ(0);
   transition:
@@ -64,19 +64,13 @@ body {
 
 .article-panel {
   position: relative;
-  width: 512px;
-  height: 480px;
+  width: 720px;
+  height: 640px;
   box-sizing: border-box;
-  padding: 0;
   overflow: hidden;
   color: var(--mantine-color-text);
   background: transparent;
   animation: article-enter 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.article-panel--closing {
-  pointer-events: none;
-  animation: article-exit 240ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 .reveal-detail {
@@ -88,7 +82,6 @@ body {
     radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.16) 0 1px, transparent 2px),
     #000000;
   background-size: 64px 64px;
-  color: var(--mantine-color-text);
   pointer-events: auto;
 }
 
@@ -102,17 +95,24 @@ body {
   text-align: left;
 }
 
+.reveal-detail .controls,
+.reveal-detail .progress {
+  color: var(--mantine-primary-color-filled);
+}
+
+@media screen and (width >= 500px) {
+  .reveal-detail .controls[data-controls-layout="edges"] .navigate-left {
+    left: max(12px, calc(50% - 360px * var(--slide-scale, 1) - 48px));
+  }
+
+  .reveal-detail .controls[data-controls-layout="edges"] .navigate-right {
+    right: max(12px, calc(50% - 360px * var(--slide-scale, 1) - 48px));
+  }
+}
+
 .reveal-step {
   display: grid !important;
   place-items: center;
-}
-
-.reveal-detail .controls {
-  color: var(--mantine-primary-color-filled);
-}
-
-.reveal-detail .progress {
-  color: var(--mantine-primary-color-filled);
 }
 
 .presentation-slide {
@@ -121,54 +121,11 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 32px 16px 16px;
-  overflow: hidden;
-  background: light-dark(
-    var(--mantine-color-white),
-    var(--mantine-color-dark-7)
-  );
-  border: 1px solid light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-4)
-  );
-  border-radius: 16px;
-  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.32);
-}
-
-.presentation-slide--flow {
-  padding-top: 16px;
-}
-
-.presentation-slide__content {
-  flex: 1;
   overflow: hidden;
 }
 
-.presentation-slide__grid {
-  display: grid;
-  grid-template-columns: 1fr 192px;
-  gap: 16px;
-  align-items: center;
-  height: 100%;
-}
-
-.presentation-hero {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  height: 100%;
-  overflow: hidden;
-}
-
-.presentation-hero__title {
-  flex: 0 0 auto;
-}
-
-.presentation-hero__title h2 {
-  margin-top: 4px;
-}
-
-.presentation-hero__image {
+.presentation-hero__image,
+.flow-stage__image {
   display: block;
   width: 100%;
   padding: 0;
@@ -176,51 +133,31 @@ body {
   overflow: hidden;
   background: #000000;
   border-radius: 16px;
+}
+
+.flow-stage__image {
   cursor: zoom-in;
 }
 
-.presentation-hero__image img {
+.presentation-hero__image img,
+.presentation-hero__image video,
+.flow-stage__image img {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: contain;
 }
 
-.presentation-hero__content {
-  flex: 1;
-  min-height: 0;
+.flow-intro__step-title {
   color: var(--mantine-color-text);
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
 }
 
-.presentation-slide__pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin: 16px 0;
-}
-
-.flow-stage {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  height: 100%;
-  color: var(--mantine-color-text);
-}
-
-.flow-stage__title {
-  flex: 0 0 auto;
-}
-
-.flow-stage__title h2 {
-  margin-top: 4px;
-}
-
-.flow-stage__rail {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  flex: 0 0 auto;
+.flow-intro__step-title:hover,
+.flow-intro__step-title:focus-visible {
+  color: var(--mantine-primary-color-filled);
 }
 
 .flow-stage__rail-item {
@@ -239,7 +176,7 @@ body {
   );
   border-radius: 8px;
   color: var(--mantine-color-text);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   text-decoration: none;
   transition:
@@ -262,65 +199,16 @@ body {
   transform: translateY(-4px);
 }
 
-.flow-stage__rail-item--active {
+.flow-stage__rail-item--active,
+.flow-stage__rail-item--active:hover,
+.flow-stage__rail-item--active:focus-visible {
   background: var(--mantine-primary-color-filled);
   border-color: var(--mantine-primary-color-filled);
   color: #ffffff;
 }
 
-.flow-stage__rail-item--active:hover,
-.flow-stage__rail-item--active:focus-visible {
-  background: var(--mantine-primary-color-filled);
-  border-color: var(--mantine-primary-color-filled);
-}
-
 .flow-stage__rail-item--active span {
   color: rgba(255, 255, 255, 0.8);
-}
-
-.flow-stage__image {
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  background: #000000;
-  border-radius: 16px;
-  cursor: zoom-in;
-}
-
-.flow-stage__image img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
-}
-
-.flow-stage__caption {
-  flex: 0 0 auto;
-  min-height: 0;
-  padding-right: 64px;
-}
-
-.flow-stage__caption h3 {
-  margin-bottom: 4px;
-}
-
-.presentation-image {
-  width: 100%;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  background: #000000;
-  border-radius: 16px;
-  cursor: zoom-in;
-}
-
-.presentation-image img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
 }
 
 .presentation-slide__index {
@@ -342,25 +230,26 @@ body {
   background: transparent;
 }
 
-.image-preview-modal__body {
+.image-preview-modal__body,
+.image-preview-frame {
   display: grid;
   place-items: center;
+}
+
+.image-preview-modal__body {
   width: 100vw;
   height: 100vh;
   min-height: 100vh;
 }
 
-.image-preview-frame {
-  display: grid;
-  place-items: center;
+.image-preview-frame,
+.image-preview {
   max-width: calc(100vw - 64px);
   max-height: calc(100vh - 64px);
 }
 
 .image-preview {
   display: block;
-  max-width: calc(100vw - 64px);
-  max-height: calc(100vh - 64px);
   width: auto;
   height: auto;
   object-fit: contain;
@@ -373,15 +262,5 @@ body {
 
   to {
     opacity: 1;
-  }
-}
-
-@keyframes article-exit {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
   }
 }

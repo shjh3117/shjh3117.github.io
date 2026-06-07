@@ -2,7 +2,6 @@ import {
   Badge,
   Card as MantineCard,
   Group,
-  Image,
   Text,
 } from "@mantine/core";
 
@@ -11,6 +10,7 @@ export default function Card({ badge, body, thumbnail, title, onOpen }) {
     src: "/article1/my-recital-lobby.png",
     alt: "Project thumbnail",
   };
+  const isVideo = cardImage.type === "video";
 
   function handleOpen(event) {
     event.preventDefault();
@@ -26,11 +26,25 @@ export default function Card({ badge, body, thumbnail, title, onOpen }) {
       onClick={handleOpen}
     >
       <MantineCard.Section>
-        <Image
-          className="project-card__image"
-          src={cardImage.src}
-          alt={cardImage.alt}
-        />
+        {isVideo ? (
+          <video
+            aria-label={cardImage.alt}
+            autoPlay
+            className="project-card__image"
+            loop
+            muted
+            playsInline
+            poster={cardImage.poster}
+            preload="metadata"
+            src={cardImage.src}
+          />
+        ) : (
+          <img
+            className="project-card__image"
+            src={cardImage.src}
+            alt={cardImage.alt}
+          />
+        )}
       </MantineCard.Section>
 
       <Group justify="space-between" gap="xs" mt="md" wrap="nowrap">
