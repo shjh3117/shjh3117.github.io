@@ -41,6 +41,22 @@ html[data-mantine-color-scheme="dark"] body {
   font-size: 22px;
 }
 
+.site-contact {
+  position: fixed;
+  right: 24px;
+  bottom: 16px;
+  z-index: 10;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.site-contact:hover,
+.site-contact:focus-visible {
+  color: rgba(0, 0, 0, 0.85);
+}
+
 .project-selection {
   position: fixed;
   inset: 0;

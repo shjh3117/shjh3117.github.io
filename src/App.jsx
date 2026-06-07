@@ -56,6 +56,9 @@ export default function App() {
         <span>shjh3117's</span>
         <span>Techlog</span>
       </div>
+      <a className="site-contact" href="mailto:shjh3117@gmail.com">
+        shjh3117@gmail.com
+      </a>
       <Card
         badge={project.badge}
         body={project.subtitle}
