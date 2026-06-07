@@ -233,7 +233,7 @@ const projectMeta = [
   },
   {
     label: "기간",
-    value: "2026.03 - 2025.05",
+    value: "2026.03 - 2026.05",
   },
   {
     label: "프로젝트 인원",
