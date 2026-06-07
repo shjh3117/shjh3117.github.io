@@ -19,12 +19,17 @@ export default function ArticlePanel({ children }) {
         padding={0}
       >
         {previewImage && (
-          <div className="image-preview-frame">
-            <img
-              className="image-preview"
-              src={previewImage.src}
-              alt={previewImage.alt}
-            />
+          <div
+            className="image-preview-backdrop"
+            onClick={() => setPreviewImage(null)}
+          >
+            <div className="image-preview-frame">
+              <img
+                className="image-preview"
+                src={previewImage.src}
+                alt={previewImage.alt}
+              />
+            </div>
           </div>
         )}
       </Modal>
