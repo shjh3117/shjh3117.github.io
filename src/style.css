@@ -181,23 +181,19 @@ html[data-mantine-color-scheme="dark"] body {
   pointer-events: auto;
 }
 
-.reveal-detail .reveal {
+.reveal-detail .project-swiper {
   width: 100%;
   height: 100%;
   color: var(--mantine-color-text);
 }
 
-.reveal-detail .slides {
-  text-align: left;
-}
-
-.reveal-detail .controls,
-.reveal-detail .progress {
+.reveal-detail .swiper-button-next,
+.reveal-detail .swiper-button-prev {
   color: var(--mantine-primary-color-filled);
 }
 
 .reveal-step {
-  display: grid !important;
+  display: grid;
   place-items: center;
 }
 
