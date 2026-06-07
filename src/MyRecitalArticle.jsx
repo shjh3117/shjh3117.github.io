@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Box,
   Group,
   Paper,
@@ -6,7 +7,6 @@ import {
   Stack,
   Text,
   Title,
-  UnstyledButton,
 } from "@mantine/core";
 
 const images = {
@@ -175,7 +175,7 @@ const projectContent = {
 
 const coreFlow = [
   {
-    slideIndex: 3,
+    href: "#/3",
     id: "lobby",
     index: 0,
     title: "Lobby",
@@ -183,7 +183,7 @@ const coreFlow = [
     image: images.lobby,
   },
   {
-    slideIndex: 4,
+    href: "#/4",
     id: "song-select",
     index: 1,
     title: "Song Select",
@@ -191,7 +191,7 @@ const coreFlow = [
     image: images.songSelect,
   },
   {
-    slideIndex: 5,
+    href: "#/5",
     id: "gameplay",
     index: 2,
     title: "Gameplay",
@@ -201,7 +201,7 @@ const coreFlow = [
 ];
 
 const extraFlow = {
-  slideIndex: 6,
+  href: "#/6",
   id: "settings",
   index: "Ex",
   title: projectContent.settings.title,
@@ -213,13 +213,13 @@ const flowStages = [...coreFlow, extraFlow];
 
 const implementationTopics = [
   {
-    slideIndex: 8,
+    href: "#/8",
     id: "client-implementation",
     index: 0,
     title: projectContent.clientImplementation.title,
   },
   {
-    slideIndex: 9,
+    href: "#/9",
     id: "chart-automation",
     index: 1,
     title: projectContent.chartAutomation.title,
@@ -256,6 +256,7 @@ const projectMeta = [
 export const myRecitalSlides = [
   {
     id: "intro",
+    label: "Intro",
     render: () => (
       <Stack gap={16} h="100%" style={{ overflow: "hidden" }}>
         <Title order={2} mt={0}>{projectContent.intro.title}</Title>
@@ -282,6 +283,7 @@ export const myRecitalSlides = [
   },
   {
     id: "project-info",
+    label: "Info",
     render: () => (
       <Stack gap={28} h="100%">
         <Title order={2} mt={0}>{projectContent.info.title}</Title>
@@ -309,7 +311,10 @@ export const myRecitalSlides = [
   },
   {
     id: "flow-overview",
-    render: ({ goToSlide }) => (
+    label: "Flow",
+    transition: "convex-in slide-out",
+    variant: "flow-intro",
+    render: () => (
       <Stack gap={16} h="100%">
         <Title order={2} mt={0}>{projectContent.flow.title}</Title>
 
@@ -319,41 +324,56 @@ export const myRecitalSlides = [
 
         <Stack gap={0} mt={6}>
           {coreFlow.map((item) => (
-            <FlowIntroStep goToSlide={goToSlide} item={item} key={item.id} />
+            <FlowIntroStep item={item} key={item.id} />
           ))}
 
-          <FlowIntroStep goToSlide={goToSlide} item={extraFlow} />
+          <FlowIntroStep item={extraFlow} />
         </Stack>
       </Stack>
     ),
   },
   {
     id: "flow-lobby",
-    render: ({ goToSlide, openImage }) => (
-      <FlowStage goToSlide={goToSlide} openImage={openImage} step={coreFlow[0]} />
+    label: "Lobby",
+    transition: "slide",
+    variant: "flow",
+    render: ({ openImage }) => (
+      <FlowStage step={coreFlow[0]} openImage={openImage} />
     ),
   },
   {
     id: "flow-song-select",
-    render: ({ goToSlide, openImage }) => (
-      <FlowStage goToSlide={goToSlide} openImage={openImage} step={coreFlow[1]} />
+    label: "Song",
+    transition: "slide",
+    variant: "flow",
+    render: ({ openImage }) => (
+      <FlowStage step={coreFlow[1]} openImage={openImage} />
     ),
   },
   {
     id: "flow-gameplay",
-    render: ({ goToSlide, openImage }) => (
-      <FlowStage goToSlide={goToSlide} openImage={openImage} step={coreFlow[2]} />
+    label: "Play",
+    transition: "slide",
+    variant: "flow",
+    render: ({ openImage }) => (
+      <FlowStage step={coreFlow[2]} openImage={openImage} />
     ),
   },
   {
     id: "settings",
-    render: ({ goToSlide, openImage }) => (
-      <FlowStage goToSlide={goToSlide} openImage={openImage} step={extraFlow} />
+    label: "Settings",
+    transition: "slide-in convex-out",
+    variant: "flow",
+    render: ({ openImage }) => (
+      <FlowStage step={extraFlow} openImage={openImage} />
     ),
   },
   {
     id: "implementation-overview",
-    render: ({ goToSlide }) => (
+    label: "Impl",
+    transition: "convex-in slide-out",
+    variant: "flow-intro",
+    render: () => (
       <Stack gap={16} h="100%">
         <Title order={2} mt={0}>{projectContent.implementation.title}</Title>
 
@@ -363,7 +383,7 @@ export const myRecitalSlides = [
 
         <Stack gap={0} mt={6}>
           {implementationTopics.map((item) => (
-            <FlowIntroStep goToSlide={goToSlide} item={item} key={item.id} />
+            <FlowIntroStep item={item} key={item.id} />
           ))}
         </Stack>
       </Stack>
@@ -371,18 +391,23 @@ export const myRecitalSlides = [
   },
   {
     id: "client-implementation",
+    label: "Client",
+    transition: "slide",
     render: () => (
       <ClientImplementationSlide />
     ),
   },
   {
     id: "chart-automation",
+    label: "Chart",
+    transition: "slide-in convex-out",
     render: () => (
       <ChartAutomationSlide />
     ),
   },
   {
     id: "result",
+    label: "Result",
     render: () => (
       <ReviewSlide />
     ),
@@ -390,7 +415,6 @@ export const myRecitalSlides = [
 ];
 
 export default function MyRecitalArticle({
-  goToSlide,
   openImage,
   slideCount,
   slideIndex,
@@ -407,7 +431,7 @@ export default function MyRecitalArticle({
       withBorder
     >
       <Box flex={1} style={{ overflow: "hidden" }}>
-        {slide.render({ goToSlide, openImage })}
+        {slide.render({ openImage })}
       </Box>
 
       <Text className="presentation-slide__index" fw={700}>
@@ -417,7 +441,7 @@ export default function MyRecitalArticle({
   );
 }
 
-function FlowIntroStep({ goToSlide, item }) {
+function FlowIntroStep({ item }) {
   return (
     <Box
       py={16}
@@ -434,13 +458,9 @@ function FlowIntroStep({ goToSlide, item }) {
         >
           {formatFlowIndex(item)}
         </Text>
-        <UnstyledButton
-          className="flow-intro__step-title"
-          type="button"
-          onClick={() => goToSlide(item.slideIndex)}
-        >
+        <Anchor className="flow-intro__step-title" href={item.href}>
           {item.title}
-        </UnstyledButton>
+        </Anchor>
       </Group>
     </Box>
   );
@@ -479,7 +499,7 @@ function ReviewSlide() {
   );
 }
 
-function FlowStage({ goToSlide, openImage, step }) {
+function FlowStage({ step, openImage }) {
   const stageTitle =
     step.index === "Ex"
       ? `${projectContent.flow.title} - ${step.index}`
@@ -491,18 +511,17 @@ function FlowStage({ goToSlide, openImage, step }) {
 
       <SimpleGrid cols={4} spacing={8}>
         {flowStages.map((item) => (
-          <UnstyledButton
+          <Anchor
             className={`flow-stage__rail-item ${
               item.id === step.id ? "flow-stage__rail-item--active" : ""
             }`}
             data-id={item.id}
+            href={item.href}
             key={item.id}
-            type="button"
-            onClick={() => goToSlide(item.slideIndex)}
           >
             <span>{formatFlowIndex(item)}</span>
             {item.title}
-          </UnstyledButton>
+          </Anchor>
         ))}
       </SimpleGrid>
 
