@@ -1,0 +1,23 @@
+{
+  "name": "threejs-learning",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "@mantine/core": "^9.3.0",
+    "@mantine/hooks": "^9.3.0",
+    "@tabler/icons-react": "^3.44.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "reveal.js": "^6.0.1"
+  }
+}
