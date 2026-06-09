@@ -154,7 +154,7 @@ const projectContent = {
     ],
   },
   result: {
-    title: "Review",
+    title: "회고",
     points: [
       {
         label: "역할",

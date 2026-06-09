@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 
 const repoUrl = "https://github.com/shjh3117/UE_CelLit";
-const repoStars = 14;
+const repoStars = 15;
 
 const images = {
   lights: {
@@ -66,19 +66,19 @@ const projectContent = {
     techStackTitle: "기술 스택",
   },
   result: {
-    title: "Review",
+    title: "회고",
     points: [
       {
         label: "역할",
-        body: "개인 개발로 진행하며, 렌더링 파이프라인 분석부터 셰이더 구현, 데모 제작까지 전 과정을 담당했습니다.",
+        body: "개인 개발로 진행하며, 렌더링 파이프라인 분석부터 셰이더 구현, 플러그인 제작까지 전 과정을 담당했습니다.",
       },
       {
         label: "성과",
-        body: "Unreal Engine의 기본 material graph나 post-process만으로는 구현하기 어려운 toon shading을, Lumen GI·PBR·VSM 환경과 함께 동작하도록 Deferred Lighting 단계에서 직접 구현했습니다.",
+        body: "GitHub에 공개한 뒤 기능 개선과 문서화를 지속했고, 외부 개발자들로부터 15개의 Star를 받았습니다.",
       },
       {
-        label: "회고",
-        body: "대학을 다니면서 취미로 진행한 프로젝트였습니다. 렌더링에 대해 아무것도 모르던 제가 프로젝트를 진행하면서 컴퓨터 그래픽스를 깊이 공부하게 되었고, Unreal Engine의 렌더러 구조도 코드를 직접 읽어가며 어느 정도는 이해하게 되었습니다.",
+        label: "계획",
+        body: "컴퓨터 그래픽스에 대한 이론을 더 공부하면서, 여러 시도를 프로젝트에 더해나가겠습니다.",
       },
     ],
     thanks: "감사합니다.",
@@ -379,16 +379,7 @@ export const cellitSlides = [
           <FeatureList title={projectContent.implementation.unsupportedTitle} items={unsupportedFeatures} />
         </SimpleGrid>
 
-        <Stack gap={8}>
-          <Text fw={700} c="dimmed" size="sm">{projectContent.implementation.techStackTitle}</Text>
-          <Group gap={8}>
-            {techStack.map((tech) => (
-              <Badge key={tech} variant="light" size="md">
-                {tech}
-              </Badge>
-            ))}
-          </Group>
-        </Stack>
+
 
         <Stack gap={0} mt={6}>
           {implementationTopics.map((item) => (
