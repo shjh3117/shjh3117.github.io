@@ -245,7 +245,7 @@ const projectMeta = [
   },
   {
     label: "기술스택",
-    value: "Unreal Engine, Pytorch",
+    value: "Unreal Engine, Slate UI, Pytorch, FastAPI",
   },
   {
     label: "성과",
