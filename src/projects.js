@@ -1,5 +1,6 @@
 import CelLitArticle, { cellitSlides } from "./CelLitArticle.jsx";
 import MyRecitalArticle, { myRecitalSlides } from "./MyRecitalArticle.jsx";
+import ReciCommonUIArticle, { reciCommonUISlides } from "./ReciCommonUIArticle.jsx";
 
 export const projects = [
   {
@@ -33,5 +34,19 @@ export const projects = [
     Article: CelLitArticle,
     slideCount: cellitSlides.length,
     slides: cellitSlides,
+  },
+  {
+    id: "reci-common-ui",
+    path: "/article3",
+    title: "Reci Common UI",
+    subtitle: "CommonUI 기반 게임 메뉴 UI 플러그인",
+    badge: "Unreal",
+    thumbnail: {
+      src: "/article3/reci-demo.png",
+      alt: "Reci Common UI demo",
+    },
+    Article: ReciCommonUIArticle,
+    slideCount: reciCommonUISlides.length,
+    slides: reciCommonUISlides,
   },
 ];
