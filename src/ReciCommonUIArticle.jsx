@@ -56,7 +56,7 @@ const projectContent = {
   },
   implementation: {
     title: "Implementation",
-    lead: "구현 사항은 persistent list, 입력 layer, 문서와 검증, 세 가지로 정리할 수 있습니다.",
+    lead: "구현 사항은 persistent list와 입력 layer, 두 가지로 정리할 수 있습니다.",
     commonTitle: "CommonUI에 맡긴 것",
     reciTitle: "Reci가 더한 것",
   },
@@ -163,12 +163,6 @@ const implementationTopics = [
     index: 1,
     title: "입력 layer",
   },
-  {
-    href: "#/10",
-    id: "docs-and-tests",
-    index: 2,
-    title: "문서와 검증",
-  },
 ];
 
 const persistentListParagraphs = [
@@ -181,12 +175,6 @@ const inputLayerParagraphs = [
   "입력 preprocessor는 Reci control이나 등록된 screen이 있을 때만 설치되고, 마지막 것이 사라지면 제거됩니다. 그래서 Reci를 쓰지 않는 화면에서는 아무것도 바꾸지 않습니다.",
   "각 입력은 handler 하나로만 갑니다. 열린 popup, screen key, focus된 Reci control, 그다음 CommonUI와 Slate의 기본 경로 순서로 전달하고, 처리한 입력만 consume합니다.",
   "Reci UI Input Data를 쓰면 Slate의 focus navigation이 Enhanced Input mapping을 따르므로, key를 바꾸면 이동 key와 hint가 함께 바뀝니다. stick은 한 번에 한 방향으로만 움직이게 했고, scroll과 carousel motion은 frame rate와 무관하게 같은 거리를 움직입니다.",
-];
-
-const docsParagraphs = [
-  "DESIGN.md에 원칙과 소유 관계를 적고, 모든 변경을 이 문서로 판단했습니다. 코드가 규칙에 못 미치는 곳은 Known deviations로 따로 남겨 두었습니다.",
-  "list, focus, dropdown, carousel과 데모 page의 동작은 automation test로 검증합니다.",
-  "사용자를 위해 빈 프로젝트에서 메뉴 하나를 만드는 GUI 가이드를, AI agent를 위해 에디터의 이름 그대로 적은 SPEC 문서를 함께 공개했습니다.",
 ];
 
 export const reciCommonUISlides = [
@@ -327,16 +315,9 @@ export const reciCommonUISlides = [
   },
   {
     id: "input-layer",
-    transition: "slide",
-    render: () => (
-      <ParagraphSlide title={implementationTopics[1].title} paragraphs={inputLayerParagraphs} />
-    ),
-  },
-  {
-    id: "docs-and-tests",
     transition: "slide-in convex-out",
     render: () => (
-      <ParagraphSlide title={implementationTopics[2].title} paragraphs={docsParagraphs} />
+      <ParagraphSlide title={implementationTopics[1].title} paragraphs={inputLayerParagraphs} />
     ),
   },
   {

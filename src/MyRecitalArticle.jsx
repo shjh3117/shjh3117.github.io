@@ -22,6 +22,10 @@ const images = {
     src: "/article1/my-recital-songlist.png",
     alt: "My Recital song selection screen",
   },
+  difficultySelect: {
+    src: "/article1/my-recital-songdetail.png",
+    alt: "My Recital difficulty selection screen",
+  },
   settings: {
     src: "/article1/my-recital-setting.png",
     alt: "My Recital settings screen",
@@ -41,7 +45,7 @@ const projectContent = {
     title: "My Recital",
     body: (
       <>
-        AI와 광선추적으로, 소리와 빛을 표현한, <strong>리듬 게임</strong>
+        AI가 만든 채보로 플레이하는 <strong>리듬 게임</strong>
         입니다.
       </>
     ),
@@ -51,42 +55,34 @@ const projectContent = {
   },
   flow: {
     title: "Game Flow",
-    lead: "My Recital은 로비, 선곡, 플레이 순으로 진행됩니다.",
+    lead: "My Recital은 로비, 선곡, 난이도 선택, 플레이 순으로 진행됩니다.",
   },
   settings: {
     title: "Settings",
-    body: "언어, 해상도, HDR, 볼륨, 판정 등의 설정이 가능한 화면입니다.",
+    body: "노트 속도, 오디오·화면 지연 보정, 키 배치, 그래픽, 언어를 설정하는 화면입니다.",
   },
   implementation: {
     title: "Implementation",
-    lead: "구현 사항은 크게 게임 클라이언트 구현과 채보 제작 자동화, 두 가지로 정리할 수 있습니다.",
+    lead: "게임 클라이언트 전체와 채보 제작 자동화를 직접 구현했습니다.",
   },
   clientImplementation: {
     title: "게임 클라이언트 구현 사항",
     items: [
       {
         label: "입력",
-        body: "정확한 입력을 얻기 위한 Win32 GetAsyncKeyState 기반 커스텀 raw input polling 구현",
+        body: "언리얼 입력은 프레임 단위로 처리되어, 한 프레임 안에서 누른 순서와 시각이 사라집니다. 장치가 기록한 입력 시각을 Enhanced Input 액션까지 그대로 전달하는 플러그인(Precision Input)을 직접 설계·구현해, 프레임과 상관없이 실제로 누른 순간과 순서대로 판정합니다.",
       },
       {
-        label: "판정",
-        body: "정확한 판정을 위해 오디오 엔진의 Quartz Clock 기준 노트 배치 및 판정",
+        label: "동기화",
+        body: "판정 기준 시간을 오디오 엔진의 Quartz Clock에서 읽어 음악과 노트가 어긋나지 않게 했고, 기기마다 다른 오디오 지연은 측정 화면에서 사용자가 직접 보정하게 했습니다.",
       },
       {
-        label: "그래픽",
-        body: "Lumen Reflection 및 HDR을 활용하여 디자인",
+        label: "플레이 화면",
+        body: "레인·현·건반을 프로시저럴 메시로 만들고, 채보에 담긴 레인 구성·카메라 시점·색 이벤트에 따라 플레이 중에 실시간으로 바꿉니다.",
       },
       {
         label: "UI",
-        body: "Slate UI 기반 C++ 구현",
-      },
-      {
-        label: "국제화",
-        body: "Unreal Localization 시스템을 사용한 다국어 지원",
-      },
-      {
-        label: "배포",
-        body: "Windows 대상, STOVE Indie 배포(예정)",
+        body: "키보드·게임패드·마우스·터치가 같은 규칙으로 동작하는 CommonUI 플러그인(Reci Common UI)을 직접 만들어 오픈소스로 공개하고, 게임의 모든 화면에 적용했습니다.",
       },
     ],
   },
@@ -187,13 +183,21 @@ const coreFlow = [
     id: "song-select",
     index: 1,
     title: "Song Select",
-    body: "플레이할 곡과 난이도를 고르는 화면입니다.",
+    body: "컬렉션·시대·작곡가로 곡을 걸러 플레이할 곡을 고르는 화면입니다.",
     image: images.songSelect,
   },
   {
     href: "#/5",
-    id: "gameplay",
+    id: "difficulty-select",
     index: 2,
+    title: "Difficulty",
+    body: "곡 정보와 최고 기록을 보고 난이도를 골라 플레이를 시작하는 화면입니다.",
+    image: images.difficultySelect,
+  },
+  {
+    href: "#/6",
+    id: "gameplay",
+    index: 3,
     title: "Gameplay",
     body: "판정, 콤보, 점수 등이 한 번에 보이는 플레이 화면입니다.",
     image: images.gameplay,
@@ -201,7 +205,7 @@ const coreFlow = [
 ];
 
 const extraFlow = {
-  href: "#/6",
+  href: "#/7",
   id: "settings",
   index: "Ex",
   title: projectContent.settings.title,
@@ -213,13 +217,13 @@ const flowStages = [...coreFlow, extraFlow];
 
 const implementationTopics = [
   {
-    href: "#/8",
+    href: "#/9",
     id: "client-implementation",
     index: 0,
     title: projectContent.clientImplementation.title,
   },
   {
-    href: "#/9",
+    href: "#/10",
     id: "chart-automation",
     index: 1,
     title: projectContent.chartAutomation.title,
@@ -233,7 +237,7 @@ const projectMeta = [
   },
   {
     label: "기간",
-    value: "2026.03 - 2026.05",
+    value: "2026.03 - 현재",
   },
   {
     label: "프로젝트 인원",
@@ -245,7 +249,7 @@ const projectMeta = [
   },
   {
     label: "기술스택",
-    value: "Unreal Engine, Slate UI, Pytorch, FastAPI",
+    value: "Unreal Engine 5.8, C++, CommonUI, Enhanced Input, Quartz, PyTorch, FastAPI",
   },
   {
     label: "성과",
@@ -343,10 +347,17 @@ export const myRecitalSlides = [
     ),
   },
   {
-    id: "flow-gameplay",
+    id: "flow-difficulty-select",
     transition: "slide",
     render: ({ openImage }) => (
       <FlowStage step={coreFlow[2]} openImage={openImage} />
+    ),
+  },
+  {
+    id: "flow-gameplay",
+    transition: "slide",
+    render: ({ openImage }) => (
+      <FlowStage step={coreFlow[3]} openImage={openImage} />
     ),
   },
   {
@@ -484,7 +495,7 @@ function FlowStage({ step, openImage }) {
     <Stack gap={16} h="100%">
       <Title order={2} mt={0}>{stageTitle}</Title>
 
-      <SimpleGrid cols={4} spacing={8}>
+      <SimpleGrid cols={flowStages.length} spacing={8}>
         {flowStages.map((item) => (
           <Anchor
             className={`flow-stage__rail-item ${
@@ -536,7 +547,7 @@ function ClientImplementationSlide() {
             }}
           >
             <Group align="baseline" gap={16} wrap="nowrap">
-              <Text c="dimmed" fw={700} size="sm" w={72}>
+              <Text c="dimmed" fw={700} size="sm" w={72} style={{ flexShrink: 0 }}>
                 {item.label}
               </Text>
               <Text size="sm">{item.body}</Text>
