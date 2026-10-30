@@ -79,9 +79,12 @@ export default function App() {
         <span>shjh3117's</span>
         <span>Techlog</span>
       </div>
-      <a className="site-contact" href="mailto:shjh3117@gmail.com">
-        shjh3117@gmail.com
-      </a>
+      <div className="site-contact">
+        <a href="https://github.com/shjh3117" target="_blank" rel="noreferrer">
+          github.com/shjh3117
+        </a>
+        <a href="mailto:shjh3117@gmail.com">shjh3117@gmail.com</a>
+      </div>
       <div className="project-list">
         {projects.map((item) => (
           <Card
