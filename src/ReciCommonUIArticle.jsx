@@ -43,7 +43,8 @@ const projectContent = {
       <>
         CommonUI를 기반으로, 게임 메뉴가{" "}
         <strong>키보드, 게임패드, 마우스, 터치에서 같게 동작하도록</strong> 돕는 Unreal
-        Engine 플러그인입니다.
+        Engine 플러그인입니다. 핵심은 포커스된 위젯 하나로만 가던 화면 안의 입력을,{" "}
+        <strong>입력 레이어에서 받을 곳을 다시 정할 수 있게</strong> 한 것입니다.
       </>
     ),
   },
@@ -52,11 +53,11 @@ const projectContent = {
   },
   devOverview: {
     title: "프로젝트 주요 개발 사항",
-    lead: "CommonUI가 이미 하는 일은 그대로 맡기고, CommonUI만으로는 채우기 어려운 부분을 플러그인으로 더했습니다.",
+    lead: "CommonUI는 맨 위에 활성화된 화면에 입력을 주고, 그 안의 입력은 Slate 기본대로 포커스된 위젯 하나로 향합니다. Reci는 그 화면 위에 입력 레이어를 두어, 포커스된 위젯이 아니더라도 입력을 받을 곳을 정할 수 있게 했습니다.",
   },
   implementation: {
     title: "Implementation",
-    lead: "구현 사항은 persistent list와 입력 layer, 두 가지로 정리할 수 있습니다.",
+    lead: "구현의 중심은 입력 layer이고, entry 안의 control까지 입력이 닿게 하는 persistent list가 이를 받칩니다.",
     commonTitle: "CommonUI에 맡긴 것",
     reciTitle: "Reci가 더한 것",
   },
@@ -89,6 +90,7 @@ const commonUIParts = [
 ];
 
 const reciParts = [
+  "포커스와 무관하게 받을 곳을 정하는 입력 layer",
   "Persistent entry list",
   "hover, focus, selection 분리",
   "Enhanced Input 기반 navigation",
@@ -153,15 +155,15 @@ const coreFlow = [
 const implementationTopics = [
   {
     href: "#/8",
-    id: "persistent-list",
+    id: "input-layer",
     index: 0,
-    title: "Persistent List",
+    title: "입력 layer",
   },
   {
     href: "#/9",
-    id: "input-layer",
+    id: "persistent-list",
     index: 1,
-    title: "입력 layer",
+    title: "Persistent List",
   },
 ];
 
@@ -172,8 +174,9 @@ const persistentListParagraphs = [
 ];
 
 const inputLayerParagraphs = [
-  "입력 preprocessor는 Reci control이나 등록된 screen이 있을 때만 설치되고, 마지막 것이 사라지면 제거됩니다. 그래서 Reci를 쓰지 않는 화면에서는 아무것도 바꾸지 않습니다.",
-  "각 입력은 handler 하나로만 갑니다. 열린 popup, screen key, focus된 Reci control, 그다음 CommonUI와 Slate의 기본 경로 순서로 전달하고, 처리한 입력만 consume합니다.",
+  "Slate에서 화면 안의 입력은 포커스된 위젯 하나로 향하고, CommonUI도 이를 따릅니다. 그래서 필터에 포커스를 둔 채 방향키로 목록을 움직이거나, 목록 줄 안의 −/+로 이동하는 일은 포커스만으로 할 수 없습니다.",
+  "Reci는 활성화된 화면 위에 입력 레이어(input preprocessor)를 두어, 포커스와 상관없이 입력을 받을 곳을 정합니다. 열린 popup, screen key, 포커스된 Reci control, 그다음 CommonUI와 Slate의 기본 경로 순서로 하나에만 전달하고, 처리하지 않은 입력은 원래대로 포커스된 위젯으로 갑니다.",
+  "입력 레이어는 Reci control이나 등록된 screen이 있을 때만 설치되고, 마지막 것이 사라지면 제거됩니다. 그래서 Reci를 쓰지 않는 화면에서는 아무것도 바꾸지 않습니다.",
   "Reci UI Input Data를 쓰면 Slate의 focus navigation이 Enhanced Input mapping을 따르므로, key를 바꾸면 이동 key와 hint가 함께 바뀝니다. stick은 한 번에 한 방향으로만 움직이게 했고, scroll과 carousel motion은 frame rate와 무관하게 같은 거리를 움직입니다.",
 ];
 
@@ -307,17 +310,17 @@ export const reciCommonUISlides = [
     ),
   },
   {
-    id: "persistent-list",
+    id: "input-layer",
     transition: "slide",
     render: () => (
-      <ParagraphSlide title={implementationTopics[0].title} paragraphs={persistentListParagraphs} />
+      <ParagraphSlide title={implementationTopics[0].title} paragraphs={inputLayerParagraphs} />
     ),
   },
   {
-    id: "input-layer",
+    id: "persistent-list",
     transition: "slide-in convex-out",
     render: () => (
-      <ParagraphSlide title={implementationTopics[1].title} paragraphs={inputLayerParagraphs} />
+      <ParagraphSlide title={implementationTopics[1].title} paragraphs={persistentListParagraphs} />
     ),
   },
   {
